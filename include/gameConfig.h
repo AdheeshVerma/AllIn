@@ -5,13 +5,23 @@ typedef enum
     CASUAL_10_20 = 1,
     HIGH_STAKES_50_100,
     NO_MERCY_500_1000,
+    BLIND_COUNT
 } Blind;
+typedef struct
+{
+    Blind level;
+    const char *name;
+    int small_blind;
+    int big_blind;
+} BlindInfo;
 typedef struct
 {
     int num_of_players;
     Blind blind_level;
-    int small_blind;
-    int big_blind;
-
 } GameConfig;
+const BlindInfo blind_table[] = {
+    {CASUAL_10_20, "Casual", 10, 20},
+    {HIGH_STAKES_50_100, "High Stakes", 50, 100},
+    {NO_MERCY_500_1000, "NO MERCY", 500, 1000},
+};
 #endif
