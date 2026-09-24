@@ -3,9 +3,9 @@
 #include "card.h"
 #include "player.h"
 #include "game.h"
-typedef struct Table
+typedef struct
 {
     int pot;
     Card communityCards[5];
-};
+} Table;
 #endif

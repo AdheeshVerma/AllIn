@@ -16,14 +16,14 @@ void gameSetup(GameConfig *config)
     // Number of players selection
     while (1)
     {
-        printf("Select Number Of players\n");
-        printf("Press ENTER for random(4-6)\t\t\t Enter a number(2-9)\n");
+        printf("Select Number Of opponents\n");
+        printf("Press ENTER for random(3-5)\t\t\t Enter a number(2-9)\n");
         printf("Enter Your Choice:");
         fgets(input, sizeof(input), stdin);
 
         if (input[0] == '\n')
         {
-            num_of_players = 4 + rand() % 3;
+            num_of_players = 3 + rand() % 2;
             break;
         }
 

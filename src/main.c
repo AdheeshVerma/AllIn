@@ -2,8 +2,9 @@
 #include <stdlib.h>
 #include <time.h>
 #include <unistd.h>
-#include "../include/deck.h"
 #include "../include/gameSetup.h"
+#include "../include/gameInit.h"
+#include "../include/game.h"
 int main()
 {
     // banner
@@ -51,8 +52,18 @@ int main()
             }
             GameConfig config;
             gameSetup(&config);
-            printf("%d", config.blind_level);
-            printf("%d", config.num_of_players);
+            printf("Blind Selected is %s\n", blind_table[config.blind_level].name);
+            printf("Total Number of players %d\n", config.num_of_players);
+            Game newGame;
+            gameInit(&newGame, &config);
+            printf("Game initialized\n");
+            printf("Current Game Phase: %d\n", newGame.phase);
+            printf("Current Pot: %d\n", newGame.table.pot);
+            printf("Top Card of deck is %d\n", newGame.deck.top);
+            for (int i = 0; i < config.num_of_players; i++)
+            {
+                printf("Player %d name %s\n", i + 1, newGame.players[i].name);
+            }
         }
         else if (input[0] == 'q')
         {
