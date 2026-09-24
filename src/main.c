@@ -62,8 +62,9 @@ int main()
             printf("Top Card of deck is %d\n", newGame.deck.top);
             for (int i = 0; i < config.num_of_players; i++)
             {
-                printf("Player %d name %s\n", i + 1, newGame.players[i].name);
+                printf("Player %d name %s \tCurrent money: %d\n", i + 1, newGame.players[i].name, newGame.players[i].chips);
             }
+            printf("Dealer is %d i.e %s", newGame.dealer_position, newGame.players[newGame.dealer_position].name);
         }
         else if (input[0] == 'q')
         {

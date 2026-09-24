@@ -17,19 +17,21 @@ void gameSetup(GameConfig *config)
     while (1)
     {
         printf("Select Number Of opponents\n");
-        printf("Press ENTER for random(3-5)\t\t\t Enter a number(2-9)\n");
+        printf("Press ENTER for random(3-5)\t\t\t Enter a number(2-8)\n");
         printf("Enter Your Choice:");
         fgets(input, sizeof(input), stdin);
 
         if (input[0] == '\n')
         {
-            num_of_players = 3 + rand() % 2;
+            int opponents = (3 + rand() % 2);
+            printf("Number of opponents: %d\n", opponents);
+            num_of_players = opponents + 1;
             break;
         }
 
-        if (input[0] >= '2' && input[0] <= '9' && input[1] == '\n')
+        if (input[0] >= '2' && input[0] <= '8' && input[1] == '\n')
         {
-            num_of_players = input[0] - '0';
+            num_of_players = input[0] - '0' + 1;
             break;
         }
 

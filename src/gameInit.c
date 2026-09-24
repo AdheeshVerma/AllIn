@@ -26,6 +26,7 @@ void gameInit(Game *new_game, GameConfig *config)
         {
             snprintf(new_game->players[i].name, sizeof(new_game->players[i]), "Player %d", i);
         }
-        new_game->players[i].chips = blind_table[config->blind_level].big_blind * 10;
+        new_game->players[i].chips = blind_table[config->blind_level].big_blind * 100;
     }
+    new_game->dealer_position = rand() % config->num_of_players;
 }
