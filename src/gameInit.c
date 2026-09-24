@@ -8,6 +8,9 @@ void gameInit(Game *new_game, GameConfig *config)
 
     Table new_table;
     Deck new_deck;
+    initialize(&new_deck);
+    shuffle(&new_deck);
+
     new_table.pot = 0;
     new_game->phase = PRE_FLOP;
     new_game->table = new_table;

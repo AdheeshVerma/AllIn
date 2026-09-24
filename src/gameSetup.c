@@ -59,7 +59,6 @@ void gameSetup(GameConfig *config)
 
         printf("Invalid input. Choose a valid blind.\n");
     }
-    printf("Bet Selected: %s\n", blind_table[blind].name);
     config->blind_level = blind;
     config->num_of_players = num_of_players;
 }
