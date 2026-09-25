@@ -24,4 +24,5 @@ typedef struct
     Player players[MAX_PLAYERS];
 
 } Game;
+void dealHoleCards(Game *game);
 #endif

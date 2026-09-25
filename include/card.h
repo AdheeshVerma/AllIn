@@ -1,6 +1,8 @@
 #ifndef ALLIN_CARD_H
 #define ALLIN_CARD_H
 
+#include <stdio.h>
+
 typedef enum
 {
     CLUBS,
@@ -31,4 +33,5 @@ typedef struct
     Suit suit;
 } Card;
 
+void displayCard(Card *card);
 #endif

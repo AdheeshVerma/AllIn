@@ -60,11 +60,19 @@ int main()
             printf("Current Game Phase: %d\n", newGame.phase);
             printf("Current Pot: %d\n", newGame.table.pot);
             printf("Top Card of deck is %d\n", newGame.deck.top);
+
+            printf("Dealer is %d i.e %s", newGame.dealer_position, newGame.players[newGame.dealer_position].name);
+
+            printf("\n======================Starting Game===================\n");
+            dealHoleCards(&newGame);
             for (int i = 0; i < config.num_of_players; i++)
             {
-                printf("Player %d name %s \tCurrent money: %d\n", i + 1, newGame.players[i].name, newGame.players[i].chips);
+                printf("Player %d name %s \tCurrent money: %d has cards ", i + 1, newGame.players[i].name, newGame.players[i].chips);
+                displayCard(&(newGame.players[i].cards[0]));
+                printf(" and ");
+                displayCard(&(newGame.players[i].cards[1]));
+                printf("\n");
             }
-            printf("Dealer is %d i.e %s", newGame.dealer_position, newGame.players[newGame.dealer_position].name);
         }
         else if (input[0] == 'q')
         {
