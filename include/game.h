@@ -2,6 +2,7 @@
 #define ALLIN_GAME_H
 #include "deck.h"
 #include "table.h"
+#include "player.h"
 #include "gameConfig.h"
 #define MAX_PLAYERS 9
 
@@ -25,4 +26,6 @@ typedef struct
 
 } Game;
 void dealHoleCards(Game *game);
+void nextTurn(Game *game);
+int preFlopBetting(Game *game);
 #endif

@@ -73,6 +73,14 @@ int main()
                 displayCard(&(newGame.players[i].cards[1]));
                 printf("\n");
             }
+
+            printf("\n====================Pre-Flop Betting==================\n");
+            int hand_active = preFlopBetting(&newGame);
+            if (hand_active)
+            {
+                printf("\n--- Pre-Flop Betting Complete ---\n");
+                printf("Pot is now: %d\n", newGame.table.pot);
+            }
         }
         else if (input[0] == 'q')
         {
