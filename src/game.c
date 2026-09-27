@@ -445,6 +445,12 @@ void showdown(Game *game)
         int winner = best_player_indices[0];
         printf("\nWinner: %s with %s! Wins %d chips!\n",
                game->players[winner].name, best_value.description, game->table.pot);
+        printf("Winning Hand: ");
+        for (int c = 0; c < 5; c++)
+        {
+            displayCard(&best_value.best_cards[c]);
+        }
+        printf("\n");
         game->players[winner].chips += game->table.pot;
         game->table.pot = 0;
     }

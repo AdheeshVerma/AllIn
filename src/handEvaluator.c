@@ -43,6 +43,21 @@ HandValue evaluate5CardHand(const Card cards[5]) {
   HandValue result;
   memset(&result, 0, sizeof(result));
 
+  for (int i = 0; i < 5; i++) {
+    result.best_cards[i] = cards[i];
+  }
+
+  for (int i = 0; i < 4; i++) {
+    for (int j = i + 1; j < 5; j++) {
+      if (getCardRankValue(result.best_cards[i].rank) <
+          getCardRankValue(result.best_cards[j].rank)) {
+        Card tmp = result.best_cards[i];
+        result.best_cards[i] = result.best_cards[j];
+        result.best_cards[j] = tmp;
+      }
+    }
+  }
+
   int vals[5];
   for (int i = 0; i < 5; i++) {
     vals[i] = getCardRankValue(cards[i].rank);
@@ -225,6 +240,8 @@ HandValue evaluateBestHand(const Card *cards, int num_cards) {
   if (num_cards == 2) {
     HandValue val;
     memset(&val, 0, sizeof(val));
+    val.best_cards[0] = cards[0];
+    val.best_cards[1] = cards[1];
     int r0 = getCardRankValue(cards[0].rank);
     int r1 = getCardRankValue(cards[1].rank);
     if (r0 < r1) {

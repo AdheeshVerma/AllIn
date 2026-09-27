@@ -21,6 +21,7 @@ typedef struct {
   HandRankType type;
   int ranks[5];
   char description[64];
+  Card best_cards[5];
 } HandValue;
 
 // value for card in the rank
