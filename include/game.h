@@ -14,6 +14,7 @@ typedef enum
     RIVER,
     SHOWDOWN
 } Phase;
+
 typedef struct
 {
     Phase phase;
@@ -23,9 +24,16 @@ typedef struct
     int current_player;
     int dealer_position;
     Player players[MAX_PLAYERS];
-
 } Game;
+
 void dealHoleCards(Game *game);
+void dealFlop(Game *game);
+void dealTurn(Game *game);
+void dealRiver(Game *game);
+void displayCommunityCards(Game *game);
 void nextTurn(Game *game);
 int preFlopBetting(Game *game);
+int postFlopBetting(Game *game);
+void showdown(Game *game);
+
 #endif
