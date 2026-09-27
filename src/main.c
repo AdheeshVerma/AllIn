@@ -77,11 +77,51 @@ int main()
 
             printf("\n====================Pre-Flop Betting==================\n");
             int hand_active = preFlopBetting(&newGame);
+
             if (hand_active)
             {
                 printf("\n--- Pre-Flop Betting Complete ---\n");
                 printf("Pot is now: %d\n", newGame.table.pot);
+
+                printf("\n======================== The Flop =======================\n");
+                dealFlop(&newGame);
+                displayCommunityCards(&newGame);
+                hand_active = postFlopBetting(&newGame);
             }
+
+            if (hand_active)
+            {
+                printf("\n--- Flop Betting Complete ---\n");
+                printf("Pot is now: %d\n", newGame.table.pot);
+
+                printf("\n======================== The Turn =======================\n");
+                dealTurn(&newGame);
+                displayCommunityCards(&newGame);
+                hand_active = postFlopBetting(&newGame);
+            }
+
+            if (hand_active)
+            {
+                printf("\n--- Turn Betting Complete ---\n");
+                printf("Pot is now: %d\n", newGame.table.pot);
+
+                printf("\n======================== The River ======================\n");
+                dealRiver(&newGame);
+                displayCommunityCards(&newGame);
+                hand_active = postFlopBetting(&newGame);
+            }
+
+            if (hand_active)
+            {
+                showdown(&newGame);
+            }
+
+            printf("\n--- Chip Counts ---\n");
+            for (int i = 0; i < config.num_of_players; i++)
+            {
+                printf("%s: %d chips\n", newGame.players[i].name, newGame.players[i].chips);
+            }
+            printf("\n[Press ENTER to play another hand or 'q' to quit]\n");
         }
         else if (input[0] == 'q')
         {
