@@ -3,6 +3,7 @@
 #include <stdlib.h>
 #include <unistd.h>
 #include "../include/game.h"
+#include "../include/handEvaluator.h"
 void dealHoleCards(Game *game)
 {
     for (int i = 0; i < game->config.num_of_players; i++)
@@ -222,7 +223,6 @@ int preFlopBetting(Game *game)
         }
         else
         {
-            // Computer player action
             printf("%s's turn... ", p->name);
             fflush(stdout);
             usleep(300000);
@@ -232,21 +232,26 @@ int preFlopBetting(Game *game)
                 printf("checks.\n");
                 players_to_act--;
             }
-            else
+            else if (p->chips >= to_call)
             {
-                int call_amount = (p->chips < to_call) ? p->chips : to_call;
-                p->chips -= call_amount;
-                p->current_bet += call_amount;
-                game->table.pot += call_amount;
+                p->chips -= to_call;
+                p->current_bet += to_call;
+                game->table.pot += to_call;
                 if (p->chips == 0)
                 {
                     p->is_all_in = true;
-                    printf("calls %d (All-In)!\n", call_amount);
+                    printf("calls %d (All-In)!\n", to_call);
                 }
                 else
                 {
-                    printf("calls %d.\n", call_amount);
+                    printf("calls %d.\n", to_call);
                 }
+                players_to_act--;
+            }
+            else
+            {
+                p->folded = true;
+                printf("folds.\n");
                 players_to_act--;
             }
         }

@@ -19,7 +19,10 @@ void gameSetup(GameConfig *config)
         printf("Select Number Of opponents\n");
         printf("Press ENTER for random(3-5)\t\t\t Enter a number(2-8)\n");
         printf("Enter Your Choice:");
-        fgets(input, sizeof(input), stdin);
+        if (!fgets(input, sizeof(input), stdin))
+        {
+            exit(0);
+        }
 
         if (input[0] == '\n')
         {
@@ -52,7 +55,10 @@ void gameSetup(GameConfig *config)
                    blind_table[i].big_blind);
         }
         printf("Enter Your Choice: ");
-        fgets(input, sizeof(input), stdin);
+        if (!fgets(input, sizeof(input), stdin))
+        {
+            exit(0);
+        }
         if (input[0] >= '1' && (input[0] - '0' <= BLIND_COUNT) && input[1] == '\n')
         {
             blind = (input[0] - '0') - 1;

@@ -40,7 +40,8 @@ int main()
     printf("Enter Your Choice: ");
     while (1)
     {
-        fgets(input, sizeof(input), stdin);
+        if (!fgets(input, sizeof(input), stdin))
+            break;
         if (input[0] == '\n')
         {
             printf("Entering Game");
