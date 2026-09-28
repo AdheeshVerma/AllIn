@@ -28,6 +28,8 @@ void gameSetup(GameConfig *config)
 
     if (input[0] == '\n')
     {
+      fflush(stdout);
+      usleep(400000);
       int opponents = (3 + rand() % 2);
       printf("Number of opponents: %d\n", opponents);
       num_of_players = opponents + 1;
@@ -36,6 +38,8 @@ void gameSetup(GameConfig *config)
 
     if (input[0] >= '2' && input[0] <= '8' && input[1] == '\n')
     {
+      fflush(stdout);
+      usleep(400000);
       num_of_players = input[0] - '0' + 1;
       break;
     }
@@ -44,6 +48,7 @@ void gameSetup(GameConfig *config)
   }
   printf("\nNumber of players: %d\n", num_of_players);
   // Blind Selection
+  usleep(500000);
   while (1)
   {
     printf("\nSelect Blind to play with (1,2,3)\n");

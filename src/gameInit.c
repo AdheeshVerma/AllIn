@@ -29,10 +29,10 @@ void gameInit(Game *new_game, GameConfig *config)
     new_game->config = *config;
     new_game->deck = new_deck;
 
-    int starting_chips = blind_table[config->blind_level].big_blind * 100;
+    int starting_chips = blind_table[config->blind_level].big_blind * 10;
     printf("Seating %d players and issuing %d chips each... ", config->num_of_players, starting_chips);
     fflush(stdout);
-    usleep(600000);
+    usleep(900000);
 
     for (int i = 0; i < config->num_of_players; i++)
     {
