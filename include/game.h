@@ -35,5 +35,6 @@ void nextTurn(Game *game);
 int preFlopBetting(Game *game);
 int postFlopBetting(Game *game);
 void showdown(Game *game);
+void startNewHand(Game *game);
 
 #endif

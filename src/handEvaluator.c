@@ -47,15 +47,16 @@ HandValue evaluate5CardHand(const Card cards[5]) {
     result.best_cards[i] = cards[i];
   }
 
-  for (int i = 0; i < 4; i++) {
-    for (int j = i + 1; j < 5; j++) {
-      if (getCardRankValue(result.best_cards[i].rank) <
-          getCardRankValue(result.best_cards[j].rank)) {
-        Card tmp = result.best_cards[i];
-        result.best_cards[i] = result.best_cards[j];
-        result.best_cards[j] = tmp;
-      }
+  // Insertion sort descending on best_cards
+  for (int i = 1; i < 5; i++) {
+    Card key = result.best_cards[i];
+    int key_val = getCardRankValue(key.rank);
+    int j = i - 1;
+    while (j >= 0 && getCardRankValue(result.best_cards[j].rank) < key_val) {
+      result.best_cards[j + 1] = result.best_cards[j];
+      j--;
     }
+    result.best_cards[j + 1] = key;
   }
 
   int vals[5];
@@ -63,15 +64,15 @@ HandValue evaluate5CardHand(const Card cards[5]) {
     vals[i] = getCardRankValue(cards[i].rank);
   }
 
-  // sort descending on values
-  for (int i = 0; i < 4; i++) {
-    for (int j = i + 1; j < 5; j++) {
-      if (vals[i] < vals[j]) {
-        int tmp = vals[i];
-        vals[i] = vals[j];
-        vals[j] = tmp;
-      }
+  // Insertion sort descending on values
+  for (int i = 1; i < 5; i++) {
+    int key = vals[i];
+    int j = i - 1;
+    while (j >= 0 && vals[j] < key) {
+      vals[j + 1] = vals[j];
+      j--;
     }
+    vals[j + 1] = key;
   }
 
   bool is_flush =
@@ -128,16 +129,16 @@ HandValue evaluate5CardHand(const Card cards[5]) {
     }
   }
 
-  // sort descending by freq then by rank
-  for (int i = 0; i < num_freqs - 1; i++) {
-    for (int j = i + 1; j < num_freqs; j++) {
-      if (freqs[i].count < freqs[j].count ||
-          (freqs[i].count == freqs[j].count && freqs[i].rank < freqs[j].rank)) {
-        RankFreq tmp = freqs[i];
-        freqs[i] = freqs[j];
-        freqs[j] = tmp;
-      }
+  // Insertion sort descending by freq then by rank
+  for (int i = 1; i < num_freqs; i++) {
+    RankFreq key = freqs[i];
+    int j = i - 1;
+    while (j >= 0 && (freqs[j].count < key.count ||
+                      (freqs[j].count == key.count && freqs[j].rank < key.rank))) {
+      freqs[j + 1] = freqs[j];
+      j--;
     }
+    freqs[j + 1] = key;
   }
 
   // Four of a kind
