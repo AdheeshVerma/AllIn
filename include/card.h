@@ -1,6 +1,6 @@
 #ifndef ALLIN_CARD_H
 #define ALLIN_CARD_H
-
+#include <stdint.h>
 #include <stdio.h>
 
 typedef enum
@@ -29,8 +29,8 @@ typedef enum
 
 typedef struct
 {
-    Rank rank;
-    Suit suit;
+    uint8_t suit :2;
+    uint8_t rank :4;
 } Card;
 
 void displayCard(Card *card);
