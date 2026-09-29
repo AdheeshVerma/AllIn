@@ -42,7 +42,7 @@ void gameInit(Game *new_game, GameConfig *config)
         }
         else
         {
-            snprintf(new_game->players[i].name, sizeof(new_game->players[i].name), "Player %d", i);
+            snprintf(new_game->players[i].name, sizeof(new_game->players[i].name), "Player %d", i + 1);
         }
         new_game->players[i].chips = starting_chips;
         new_game->players[i].current_bet = 0;
