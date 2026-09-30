@@ -1,6 +1,7 @@
 #include <stdlib.h>
 #include "../include/deck.h"
 #include "../include/card.h"
+#include <sys/random.h>
 void initialize(Deck *deck)
 {
     int i = 0;
@@ -19,7 +20,9 @@ void shuffle(Deck *deck)
 {
     for (int i = 51; i > 0; i--)
     {
-        int j = rand() % (i + 1);
+        unsigned int seed;
+        getrandom(&seed,sizeof(seed),0);
+        int j = seed %(i+1);
 
         Card temp = deck->cards[i];
         deck->cards[i] = deck->cards[j];

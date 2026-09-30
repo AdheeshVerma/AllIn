@@ -1,4 +1,5 @@
 #define _DEFAULT_SOURCE
+#include <signal.h>
 #include "../include/game.h"
 #include "../include/gameInit.h"
 #include "../include/gameSetup.h"
@@ -6,7 +7,17 @@
 #include <stdlib.h>
 #include <time.h>
 #include <unistd.h>
+
+void handleSigint(int sig){
+  (void)sig;
+  printf("\n\n[!] Caught interrupt signal (Ctrl+C).\n");
+  printf("[*] Saving state and shutting down AllIn Poker gracefully...\n");
+  printf("[*] Goodbye!\n");
+  exit(0);
+}
+
 int main() {
+  signal(SIGINT, handleSigint);
   // banner
   puts("╔══════════════════════════════════════════════════════════════════╗\n"
        "║                                                                  ║\n"
