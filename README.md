@@ -57,4 +57,11 @@ AllIn/
 └── vault/                       # Obsidian documentation vault (unmonitored by git)
     └── AllIn/                   # Developer design notes and architectural specs
 ```
- 
+---
+# How to play
+
+```
+git clone https://github.com/AdheeshVerma/AllIn
+cd AllIn
+make run
+```
