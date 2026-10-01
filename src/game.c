@@ -97,8 +97,8 @@ static int runBettingRound(Game *game, int current_highest_bet, int min_raise) {
 
     if (game->current_player == 0) {
       printf("\n--- YOUR TURN (%s) ---\n", p->name);
-      printf("Pot: %d | Your Chips: %d | Current Bet to Call: %d\n",
-             game->table.pot, p->chips, to_call);
+      printf("Pot: %d | Your Chips: %d | Bet Committed: %d | Current Bet to Call: %d\n",
+             game->table.pot, p->chips, p->current_bet, to_call);
       printf("Your Cards: ");
       displayCard(&p->cards[0]);
       printf(" ");
@@ -116,13 +116,18 @@ static int runBettingRound(Game *game, int current_highest_bet, int min_raise) {
       while (1) {
         if (to_call == 0) {
           if (current_highest_bet == 0) {
-            printf("Choose action: [c] Check, [r] Bet, [f] Fold: ");
+            printf("Choose action: [c] Check, [r] Bet, [a] All-In, [f] Fold: ");
           } else {
-            printf("Choose action: [c] Check, [r] Raise, [f] Fold: ");
+            printf("Choose action: [c] Check, [r] Raise, [a] All-In, [f] Fold: ");
           }
         } else {
-          printf("Choose action: [c] Call (%d), [r] Raise, [f] Fold: ",
-                 to_call);
+          if (p->chips <= to_call) {
+            printf("Choose action: [c] Call (%d - All-In), [f] Fold: ",
+                   p->chips);
+          } else {
+            printf("Choose action: [c] Call (%d), [r] Raise, [a] All-In, [f] Fold: ",
+                   to_call);
+          }
         }
 
         if (!fgets(input, sizeof(input), stdin))
@@ -150,6 +155,39 @@ static int runBettingRound(Game *game, int current_highest_bet, int min_raise) {
             }
           }
           players_to_act--;
+          break;
+        } else if (choice == 'a' || choice == 'A') {
+          int all_in_total = p->current_bet + p->chips;
+          int additional_chips = p->chips;
+
+          p->chips = 0;
+          p->is_all_in = true;
+          p->current_bet = all_in_total;
+          game->table.pot += additional_chips;
+
+          if (all_in_total > current_highest_bet) {
+            int raise_amount = all_in_total - current_highest_bet;
+            if (raise_amount > min_raise) {
+              min_raise = raise_amount;
+            }
+            if (current_highest_bet == 0) {
+              printf("You bet %d (All-In)!\n", all_in_total);
+            } else {
+              printf("You raised to %d (All-In)!\n", all_in_total);
+            }
+            current_highest_bet = all_in_total;
+
+            players_to_act = 0;
+            for (int k = 0; k < game->config.num_of_players; k++) {
+              if (k != game->current_player && !game->players[k].folded &&
+                  !game->players[k].is_all_in) {
+                players_to_act++;
+              }
+            }
+          } else {
+            printf("You called %d (All-In)!\n", additional_chips);
+            players_to_act--;
+          }
           break;
         } else if (choice == 'r' || choice == 'R') {
           int min_total_bet = current_highest_bet + min_raise;
@@ -181,12 +219,23 @@ static int runBettingRound(Game *game, int current_highest_bet, int min_raise) {
             game->table.pot += additional_chips;
             if (p->chips == 0) {
               p->is_all_in = true;
-              printf("You raised to %d (All-In)!\n", raise_total);
+              if (current_highest_bet == 0) {
+                printf("You bet %d (All-In)!\n", raise_total);
+              } else {
+                printf("You raised to %d (All-In)!\n", raise_total);
+              }
             } else {
-              printf("You raised to %d.\n", raise_total);
+              if (current_highest_bet == 0) {
+                printf("You bet %d.\n", raise_total);
+              } else {
+                printf("You raised to %d.\n", raise_total);
+              }
             }
 
-            min_raise = raise_total - current_highest_bet;
+            int raise_amount = raise_total - current_highest_bet;
+            if (raise_amount > min_raise) {
+              min_raise = raise_amount;
+            }
             current_highest_bet = raise_total;
 
             players_to_act = 0;
@@ -199,7 +248,7 @@ static int runBettingRound(Game *game, int current_highest_bet, int min_raise) {
             break;
           }
         } else {
-          printf("Invalid choice. Enter 'c', 'r', or 'f'.\n");
+          printf("Invalid choice. Enter 'c', 'r', 'a', or 'f'.\n");
         }
       }
     } else {

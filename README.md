@@ -5,7 +5,7 @@
 1. **Interactive Configuration**: Command-line terminal setup allowing the user to select the number of opponents (2 to 8, or randomized 3 to 5) and one of three blind tiers (`Casual`, `High Stakes`, `NO MERCY`).
 2. **Standard 52-Card Deck Management**: Card representation with 4 suits and 13 ranks, Fisher-Yates uniform shuffle algorithm, card dealing, and burn cards before the flop, turn, and river.
 3. **Turn and Action Rotation**: Rotation through dealer button, small blind posting, big blind posting, under-the-gun (UTG) first-to-act, and post-flop dealer-relative rotations.
-4. **Complete Betting Loop**: Action choices for Check, Call, Raise (with min-raise and max-raise constraints), and Fold; all-in tracking; action reopening upon raise; and early pot award if all opponents fold.
+4. **Complete Betting Loop**: Action choices for Check, Call, Raise (with min-raise and max-raise constraints), All-In, and Fold; all-in tracking; action reopening upon raise; and early pot award if all opponents fold.
 5. **Basic AI Decision Engine**: Rule-based AI opponents evaluating `to_call`, chip count, and random betting probabilities.
 6. **Texas Hold'em Hand Evaluator**: Evaluation of any 5-card combination across all 10 standard poker hand rankings (High Card to Royal Flush), plus a 7-card evaluator that enumerates all $\binom{7}{5} = 21$ combinations to find the player's optimal 5-card hand and break ties using descending kicker arrays.
 7. **Showdown & Pot Resolution**: Card reveals, best-hand comparisons, single winner pot collection, and equal split-pot division on ties.
